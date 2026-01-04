@@ -2,7 +2,8 @@ name: Build and Deploy Vue App
 on:
   push:
     branches:
-      - main  # Trigger on pushes to the main branch
+      - main 
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -25,8 +26,8 @@ jobs:
       - name: Sync Files to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ftpupload.net
-          username: if0_40669966
-          password: SytqzBpG9nqVXol
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/      # Vue build output folder
           server-dir: /htdocs/ # Target folder on your server
